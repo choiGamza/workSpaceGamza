@@ -28,21 +28,7 @@
 
 <!-- Modal  -->
 <link href="${pageContext.request.contextPath}/resources/loginBootstrap/vendor/bootstrap/css/bootstrap.css">
-
-<style>
-	.modal {
-        text-align: center;
-        vertical-align: middle;
-}
-@media screen and (min-width: 768px) { 
-        .modal:before {
-                display: inline-block;
-                vertical-align: middle;
-                content: " ";
-                height: 20%;
-        }
-}
-</style>
+<link href="${pageContext.request.contextPath}/resources/css/common.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -60,24 +46,26 @@
 			<div class="row h-100">
 				<div class="col-12 my-auto">
 					<div class="masthead-content text-white py-5 py-md-0">
-						<h1 class="mb-3">TheJoen Academy</h1>
-							<p class="mb-5">사용자 비밀번호 : qweqwe<br>
-										관리자 아이디, 비밀번호 : admin,qweasd
-						<form action="Login" method="post">
-							<div class="input-group input-group-newsletter">
-								<input type="text" name="ID" class="form-control"
-									placeholder="login..." aria-label="login..."
-									aria-describedby="basic-addon">
+						<h1 class="mb-3">Gamza WorkSpace</h1>
+							<p class="mb-5"> Hello World !!
+<%--						<form id = "loginForm" action = "login/loginStart" method="post">--%>
+							<div>
+								<div class="input-group input-group-newsletter">
+									<input type="text" id = "userId" name="ID" class="form-control"
+										placeholder="login..." aria-label="login..."
+										aria-describedby="basic-addon">
+								</div>
+								<div class="input-group input-group-newsletter">
+									<input type="password" id = "userPw" name="PW" class="form-control"
+										placeholder="password..." aria-label="password..."
+										aria-describedby="basic-addon">
+								</div>
+								<div class="input-group-append">
+									<button class="btn btn-secondary" id = "login">Login</button>
+<%--									<button class="btn btn-secondary" type="submit" value="Login">Login</button>--%>
+								</div>
 							</div>
-							<div class="input-group input-group-newsletter">
-								<input type="password" name="PW" class="form-control"
-									placeholder="password..." aria-label="password..."
-									aria-describedby="basic-addon">
-							</div>
-							<div class="input-group-append">
-								<button class="btn btn-secondary" type="submit" value="Login">Login</button>
-							</div>
-						</form>
+<%--						</form>--%>
 						<div class="input-group-append">
 							<button class="btn btn-secondary" type="submit" value="pwFind"
 								id="pwBtn">비밀번호 재설정</button>
@@ -114,24 +102,18 @@
 					</h5>
 				</div>
 				<div class="modal-body">
-		
 					인사과 : 02-255-1515 <br>
 					개발팀 : 02-255-1516 <br>
 					행정팀 : 02-255-1517 <br>
 					사장실 : 02-255-1518 <br>
-					
 				</div>
-
 				<div class="modal-footer">
 					<button type="button" class="btn" data-dismiss="modal">닫기</button>
 				</div>
-
 			</div>
 		</div>
 	</div>
- 
- 
- 	
+
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" >
 		<div class="modal-dialog modal-lg" >
 			<div class="modal-content">
@@ -140,15 +122,11 @@
 				</div>
 				<form action = "Find" method = "post">
 				<div class="modal-body">
-					
         				아이디 <input type="text" class="form-control" placeholder="아이디" name = "id">
     					<br>   
 					    이름 <input type="text" class="form-control" placeholder="이름" name = "name">
 					     <br>
-					  	
 						e-mail <input type="email" class = "form-control" placeholder="email" name = "email"><br>
-						
-					
 				</div>
 				<div class="modal-footer">
 					<input type = "submit" class = "btn btn-primary" value = "찾기">
@@ -159,26 +137,18 @@
 			</div>
 		</div>
 	</div>
+
 	<!-- Bootstrap core JavaScript -->
 	<script src="${pageContext.request.contextPath}/resources/loginBootstrap/vendor/jquery/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/loginBootstrap/vendor/bootstrap/js/bootstrap.min.js"></script>
 
 	<!-- Custom scripts for this template -->
 	<script src="${pageContext.request.contextPath}/resources/loginBootstrap/js/coming-soon.min.js"></script>
+	<script type="text/javascript" src = "${pageContext.request.contextPath}/resources/js/loginController.js" ></script>
 
-	<script>
-		$(document).ready(function(){
-		    $("#pwBtn").click(function(){
-		        $("#myModal").modal();
-		    });
-		});
-		$(document).ready(function(){
-		    $("#myBtn").click(function(){
-		        $("#testModal").modal();
-		    });
-		});
-		
-	</script>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 </body>
 
 </html>

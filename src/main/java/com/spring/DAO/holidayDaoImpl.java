@@ -1,13 +1,11 @@
 package com.spring.DAO;
 
-import java.util.List;
-
+import com.spring.DTO.holidayDto;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.spring.DTO.departmentDto;
-import com.spring.DTO.holidayDto;
+import java.util.List;
 
 public class holidayDaoImpl implements holidayDaoInterface{
 

@@ -1,16 +1,16 @@
 package com.spring.DAO;
 
-import java.util.List;
-
+import com.spring.vo.DepartmentVO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import com.spring.DTO.departmentDto;
+
+import java.util.List;
 
 public class departmentDaoImpl implements departmentDaoInterface{
 
 	private JdbcTemplate jdbcTemplate;
-	private List<departmentDto> list;
+	private List<DepartmentVO> list;
 
 	public JdbcTemplate getJdbcTemplate() {
 		return jdbcTemplate;
@@ -19,7 +19,7 @@ public class departmentDaoImpl implements departmentDaoInterface{
 		this.jdbcTemplate = jdbcTemplate;
 	}
 	
-	public int addDepartment(departmentDto dto) {
+	public int addDepartment(DepartmentVO dto) {
 		String sql = "insert into department values(?,?)";
 		
 		int ret = 1;
@@ -34,11 +34,11 @@ public class departmentDaoImpl implements departmentDaoInterface{
 		return ret;
 		
 	}
-	public List<departmentDto> departmentList(){
+	public List<DepartmentVO> departmentList(){
 		String sql = "select * from department";
 		
 		try {
-			list = jdbcTemplate.query(sql, new BeanPropertyRowMapper(departmentDto.class));
+			list = jdbcTemplate.query(sql, new BeanPropertyRowMapper(DepartmentVO.class));
 		}
 		catch(DataAccessException e){
 			System.out.println("departmentList() - DataAccessException");

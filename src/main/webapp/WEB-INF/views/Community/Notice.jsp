@@ -1,13 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-
-
-<!-- EUC-KR로 페이지 인코딩이랑 charset을 했을때 한글깨짐현상 일어남 -->
-
-
-
+<%@ include file="/WEB-INF/views/Common/header.jsp"%>
 
 <!DOCTYPE html>
 <html>
@@ -22,27 +16,8 @@
 
 <title>업무관리 프로그램</title>
 
-
-
-<!-- Bootstrap core CSS-->
-<link href="resources/bootstrap/vendor/bootstrap/css/bootstrap.min.css"
-   rel="stylesheet">
-
-<!-- Custom fonts for this template-->
-<link href="resources/bootstrap/vendor/fontawesome-free/css/all.min.css"
-   rel="stylesheet" type="text/css">
-
-<!-- Page level plugin CSS-->
-<link
-   href="resources/bootstrap/vendor/datatables/dataTables.bootstrap4.css"
-   rel="stylesheet">
-
-<!-- Custom styles for this template-->
-<link href="resources/bootstrap/css/sb-admin.css" rel="stylesheet">
-
 <!-- Modal  -->
 <link href="${pageContext.request.contextPath}/resources/loginBootstrap/vendor/bootstrap/css/bootstrap.css">
-
 <style>
 .sidebar{
 min-height: calc(100vh - 0px); !important;
@@ -475,10 +450,6 @@ font-size : 30px;
       </footer>
 
 
-
-
-
-
       <!-- Scroll to Top Button-->
       <a class="scroll-to-top rounded" href="#page-top"> <i
          class="fas fa-angle-up"></i>
@@ -505,29 +476,6 @@ font-size : 30px;
             </div>
          </div>
       </div>
-
-      <!-- Bootstrap core JavaScript-->
-      <script src="resources/bootstrap/vendor/jquery/jquery.min.js"></script>
-      <script
-         src="resources/bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-      <!-- Core plugin JavaScript-->
-      <script
-         src="resources/bootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-      <!-- Page level plugin JavaScript-->
-      <script src="resources/bootstrap/vendor/chart.js/Chart.min.js"></script>
-      <script
-         src="resources/bootstrap/vendor/datatables/jquery.dataTables.js"></script>
-      <script
-         src="resources/bootstrap/vendor/datatables/dataTables.bootstrap4.js"></script>
-
-      <!-- Custom scripts for all pages-->
-      <script src="resources/bootstrap/js/sb-admin.min.js"></script>
-
-      <!-- Demo scripts for this page-->
-      <script src="resources/bootstrap/js/demo/datatables-demo.js"></script>
-      <script src="resources/bootstrap/js/demo/chart-area-demo.js"></script>
 
 	  <script>
 			$(document).ready(function(){

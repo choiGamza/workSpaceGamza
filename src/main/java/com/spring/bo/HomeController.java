@@ -1,53 +1,17 @@
 package com.spring.bo;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Random;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
+import com.spring.login.loginService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.spring.DTO.TaskDto;
-import com.spring.DTO.departmentDto;
-import com.spring.DTO.holidayDto;
-import com.spring.DTO.memberDto;
-import com.spring.DTO.noticeDto;
-import com.spring.DTO.projectfileDto;
-import com.spring.DTO.projecttaskDto;
-import com.spring.DTO.projecttaskdetailDto;
-import com.spring.Service.TaskServiceInterface;
-import com.spring.Service.communitySerivceInterface;
-import com.spring.Service.holidayServiceInterface;
-import com.spring.Service.organizationServiceInterface;
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Handles requests for the application home page.
@@ -56,18 +20,21 @@ import com.spring.Service.organizationServiceInterface;
 public class HomeController {
 	
 	private static final String FILE_EXT = ".jpg";
-	
+
+	@Autowired
+	loginService service;
+
 	// 11/12 16:32 HomeController Mapping 전면수정
 	// 11/19 15:30 HomeController 회원 등록/삭제 생성 (최진성)
 	// 11/19 15:31 Login했을때 HomeController 에서 인증이 끝나면 세션에  Dto 오브젝트 이름 memberDto
-	private int certCharLength = 6;
+	/*private int certCharLength = 6;
 	private final char[] characterTable = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 
              'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 
              'Y', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' };	// 초기 비밀번호 랜덤함수
 	static String emailToRecipient, emailSubject, emailMessage;		//email 제목,내용,상대 email
 
-	private List<departmentDto> departmentList;
-	private List<memberDto> memberList;
+	private List<DepartmentVO> departmentList;
+	private List<userVO> memberList;
 	private List<holidayDto> holidayList;
 	private List<noticeDto> noticeList;
 	private List<noticeDto> boardList;
@@ -75,11 +42,11 @@ public class HomeController {
 	private List<projecttaskDto> TeamtaskList;
 	private List<projecttaskdetailDto> taskdetailList;	
 	private List<projectfileDto> taskfileList;
-	private memberDto memberdto;
+	private userVO memberdto;
 	private noticeDto noticedto;
 	
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+
 	@Autowired
 	BCryptPasswordEncoder bcryptPasswordEncoder;
 	@Autowired
@@ -90,34 +57,45 @@ public class HomeController {
 	private communitySerivceInterface communityservice;
 	@Autowired
 	private TaskServiceInterface taskservice;
-	@Autowired
-	private JavaMailSender mailSenderObj;
-	
-	
-	
-	
+
 	//11/19
-	holidayDto holidaydto = new holidayDto();
-	
+	holidayDto holidaydto = new holidayDto();*/
+
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
-		
+
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
+
 		String formattedDate = dateFormat.format(date);
-		
+
 		model.addAttribute("serverTime", formattedDate );
 		return "Main/login";
 	}
-	
+
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	public String login_ok() throws Exception {
+		return "Main/home";
+	}
+
+	@RequestMapping(value = "/fail", method = RequestMethod.GET)
+	public String login_fail() throws Exception {
+		return "Main/login";
+	}
+
+	@RequestMapping(value = "/notice", method = RequestMethod.GET)
+	public String notice() throws Exception {
+		return "Community/Notice";
+	}
+
 	//로그인했을때 Controller처리부문
 	//로그인할때 사용자 정보는 dao에서 받아와서 세션으로 객체로 저장
-	@RequestMapping(value = "/Login", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/Login", method = RequestMethod.POST)
 	public ModelAndView Login(HttpServletRequest request,HttpSession session,HttpServletResponse response) throws Exception{
 		String viewPage = "Main/home";
 		ModelAndView model = new ModelAndView(viewPage);
@@ -160,60 +138,10 @@ public class HomeController {
 				return model;
 			}
 
-	}
-//로그인 페이지에서 Find ----- Controller 구문처리부문  //dao 삽입요망 	
-	@RequestMapping(value = "/Find", method = RequestMethod.POST)
-	public String FindPwSuccess(HttpServletResponse response ,Model model, memberDto dto) throws Exception{
-		int ret = organizationService.FindPwSuccess(dto);
-		
-		if(ret == 1) {
-			Random random = new Random(System.currentTimeMillis());
-			int tableLength = characterTable.length;
-			
-			StringBuffer buf = new StringBuffer();
-			
-			for(int i = 0; i < certCharLength; i++) {
-				buf.append(characterTable[random.nextInt(tableLength)]);
-			}
-			String bwf = buf.substring(0);
-			
-			String hashedpassword = bcryptPasswordEncoder.encode(bwf);
-			System.out.println("hashed pw   "+hashedpassword);
-			dto.setPw(hashedpassword);
-			organizationService.FindPwUpdate(dto);		// 바뀐 비밀번호 
-			
-			emailSubject = dto.getName()+" 님 TheJoen 초기화된 비밀 번호 입니다.";
-			emailMessage = "변경된 비밀번호 : " + bwf + " 정보변경에서 비밀번호를 변경해주세요.";
-			emailToRecipient = dto.getEmail();
-			
-			System.out.println("\nReceipient?= " + emailToRecipient + ", Subject?= " + emailSubject + ", Message?= " + emailMessage + "\n");
-
-			SimpleMailMessage simpleEmail = new SimpleMailMessage();
-			simpleEmail.setTo(emailToRecipient);
-			simpleEmail.setSubject(emailSubject);
-			simpleEmail.setText(emailMessage);
-					
-			mailSenderObj.send(simpleEmail);			// email 전송
-			
-			response.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			out.println("<script>alert('새로운 비밀번호를 email로 보내드렸습니다.');history.back();</script>");
-			out.close();
-			
-			return "Main/login";
-		}
-		else {
-			System.out.println("id 또는 name 또는 email 불일치");
-			response.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			out.println("<script>alert('id 또는 name 또는 email 불일치.');history.back();</script>");
-			out.close();
-			return "Main/login";
-		}
-	}
+	}*/
 
 	//-----------------------------조직관리(관리자 메뉴 Mapping)----------------------------
-	@RequestMapping(value="/adminRegister") // 회원등록/삭제
+	/*@RequestMapping(value="/adminRegister") // 회원등록/삭제
 		public String adminRegister(Model model) 
 	{
 
@@ -253,7 +181,7 @@ public class HomeController {
    public ModelAndView userTeamSchedule(HttpSession session) 
    {
       ModelAndView model = new ModelAndView("Task/userTeamSchedule");
-      memberdto=(memberDto)session.getAttribute("user");
+      memberdto=(userVO)session.getAttribute("user");
       memberList=organizationService.teamNameList(memberdto.getDepartment());
       session.setAttribute("projectmemberlist",taskservice.projectmemberList(memberdto.getId()));
       model.addObject("memberList", memberList);           
@@ -268,7 +196,7 @@ public class HomeController {
 	   
 	   session.setAttribute("projectNumber", Integer.parseInt(stringNum));
 	   
-	   memberdto=(memberDto)session.getAttribute("user");
+	   memberdto=(userVO)session.getAttribute("user");
 	   
 	   TeamtaskList=taskservice.projecttaskList(Integer.parseInt(stringNum));
 	   taskfileList = taskservice.projectFileList(number);
@@ -344,7 +272,7 @@ public class HomeController {
 	@RequestMapping(value ="/userHolidayCheck", method = RequestMethod.GET) //휴가조회
 	public String userHolidayCheck(HttpSession session,Model model) 
 	{
-		memberdto = (memberDto)session.getAttribute("user");
+		memberdto = (userVO)session.getAttribute("user");
 		String id=memberdto.getId();
 		holidayList=holidayservice.checkMyHoliday(id);
 		
@@ -404,7 +332,7 @@ public class HomeController {
 	
 	
 	@RequestMapping(value="/addDepartment", method = RequestMethod.POST)
-	public String addDepartment(departmentDto dto) {
+	public String addDepartment(DepartmentVO dto) {
 		
 		organizationService.addDepartment(dto);
 		
@@ -435,7 +363,7 @@ public class HomeController {
 	
 	
 	@RequestMapping(value="/addMember", method = RequestMethod.POST)
-	public String addMember(memberDto dto, HttpServletRequest request) {
+	public String addMember(userVO dto, HttpServletRequest request) {
 		//----------------------초기 비밀번호 랜덤 함수값 -------------------------------------------
 		Random random = new Random(System.currentTimeMillis());
 		int tableLength = characterTable.length;
@@ -499,7 +427,7 @@ public class HomeController {
 	
 	@RequestMapping(value = "/writeHoliday", method = RequestMethod.POST)
 	public String writeHoliday(HttpSession session,HttpServletRequest request,Model model) { //휴가신청 기능
-		memberdto = (memberDto)session.getAttribute("user");
+		memberdto = (userVO)session.getAttribute("user");
 		holidayDto holidaydto = new holidayDto();
 		//-------------  이부분은 이제 DAO 추가하면 바뀔것 ------------------
 		String id =memberdto.getId();
@@ -561,7 +489,7 @@ public class HomeController {
 	  }
 	
 	@RequestMapping(value = "/changeInfo")				// 사용자가 직접 변경한다
-	public String changeInfo(Model model, memberDto dto,HttpServletRequest request ,HttpServletResponse response, @RequestParam("file") MultipartFile file) throws Exception{
+	public String changeInfo(Model model, userVO dto, HttpServletRequest request , HttpServletResponse response, @RequestParam("file") MultipartFile file) throws Exception{
 		
 		if(file.isEmpty()==true) {					// 이미지를 안넣음
 			System.out.println("이미지 없음");
@@ -650,7 +578,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/userInfoUpdate")
-	public String userInfoUpdate(HttpServletRequest request, memberDto dto,Model model) {
+	public String userInfoUpdate(HttpServletRequest request, userVO dto, Model model) {
 		String title = request.getParameter("AdminUpdate");				//수정인지 삭제인지 알아보는 이름
 		String id = request.getParameter("id");						
 		String nowDepartment = request.getParameter("nowDepartment");	//수정하기전 사용자의 department
@@ -713,9 +641,9 @@ public class HomeController {
 		String page = request.getParameter("pagenum");
 		int pagenum = Integer.parseInt(page);
 		int a = (pagenum*10)-10;
-		
+
 		noticeList = communityservice.noticeList();
-		
+
 		List<noticeDto> listCount = communityservice.ListCount(a);
 		List<noticeDto> generalList = communityservice.generalList();
 		model.addAttribute("noticeList",noticeList);
@@ -834,7 +762,7 @@ public class HomeController {
 
 	//-----------------------------------------사용자조직도 확인------------------------------------------
 	@RequestMapping(value = "/teamDetail", method = RequestMethod.GET)
-	public String teamDetail(memberDto dto,Model model) {
+	public String teamDetail(userVO dto, Model model) {
 		memberList = organizationService.DepartmentMember(dto);
 		model.addAttribute("memberList",memberList);
 		departmentList = organizationService.departmentList();
@@ -925,7 +853,7 @@ public class HomeController {
 	   String taskdetail = request.getParameter("taskdetail");
 	   String task = request.getParameter("task");
 	   int number=(Integer)session.getAttribute("projectNumber");
-	   memberdto=(memberDto)session.getAttribute("user");
+	   memberdto=(userVO)session.getAttribute("user");
 	   String id=memberdto.getId();
 	   
 	   int result = taskservice.addtaskDetail(id,number, task, taskdetail);
@@ -960,7 +888,7 @@ public class HomeController {
 	   int choice = Integer.parseInt(stringchoice);
 	   String task = request.getParameter("task");
 	   String taskdetail = request.getParameter("taskdetail");
-	   memberdto=(memberDto)session.getAttribute("user");
+	   memberdto=(userVO)session.getAttribute("user");
 	   String id=memberdto.getId();
 	   
 	   taskservice.taskdetailProgress(id,choice, number, task, taskdetail);
@@ -1092,7 +1020,7 @@ public class HomeController {
 		holidayservice.processHoliday(id, process,holidaytype);
 		
 		return "redirect:/adminHoliday";
-	}
+	}*/
 	
 	
 }

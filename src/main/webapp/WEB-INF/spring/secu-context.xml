@@ -10,12 +10,12 @@
 
    <context:annotation-config />
    
-   <beans:bean id="bcryptPasswordEncoder"
-      class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
-      <beans:constructor-arg name="strength" value="10" />
-   </beans:bean>
+<!--   <beans:bean id="bcryptPasswordEncoder"-->
+<!--      class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">-->
+<!--      <beans:constructor-arg name="strength" value="10" />-->
+<!--   </beans:bean>-->
 
-	<beans:bean id="pbkdf2PasswordEncoder"
-		class="org.springframework.security.crypto.password.Pbkdf2PasswordEncoder">
-	</beans:bean>
+<!--	<beans:bean id="pbkdf2PasswordEncoder"-->
+<!--		class="org.springframework.security.crypto.password.Pbkdf2PasswordEncoder">-->
+<!--	</beans:bean>-->
 </beans:beans>

@@ -1,46 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
-	
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:beans="http://www.springframework.org/schema/beans"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+	<context:component-scan base-package="com.spring"/>
+
+	<mvc:default-servlet-handler/>
+	<mvc:annotation-driven />
+	<mvc:resources mapping="/resources/**" location="/resources/"/>
+
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean id="multipartResolver"  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 
-         <!-- 최대업로드 가능한 바이트크기 -->
-         <property name="maxUploadSize" value="52428800" />
-         <!-- 디스크에 임시 파일을 생성하기 전에 메모리에 보관할수있는 최대 바이트 크기 -->
-         <!-- property name="maxInMemorySize" value="52428800" / -->
-         <!-- defaultEncoding -->
-         <property name="defaultEncoding" value="utf-8" />
+		<property name="defaultEncoding" value="utf-8"/>
+		<property name="maxUploadSize" value = "100000000" />
+		<property name="maxInMemorySize" value = "100000000" />
 	</bean>
-    <bean id="fileViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
-    <property name="order" value="0">
-    </property>
-	</bean>
-	<bean id="dataSource"
-        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/portfolio?autoReconnect=true&amp;useSSL=false" />
-        <property name="username" value="root" />
-        <property name="password" value="todaud11!!" />
-     </bean>
 
-	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-		<property name="dataSource" ref="dataSource" />
+    <bean id="fileViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="0">
+		</property>
 	</bean>
-	
-	<bean id = "departmentDaoImpl" class = "com.spring.DAO.departmentDaoImpl">
+
+	<!--<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource" />
+	</bean>-->
+
+	<!--<bean id = "departmentDaoImpl" class = "com.spring.DAO.departmentDaoImpl">
 		<property name = "jdbcTemplate" ref = "jdbcTemplate"></property>
 	</bean>
 
 	<bean id = "holidayDaoImpl" class = "com.spring.DAO.holidayDaoImpl">
 		<property name = "jdbcTemplate" ref = "jdbcTemplate"></property>
+	</bean>-->
+
+	<!--<bean id="dataSource"
+	class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
 	</bean>
-	<bean id = "memberDaoImpl" class = "com.spring.DAO.memberDaoImpl">
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="configLocation" value="classpath:/mybatis/mybatis-config.xml"/>
+		<property name="mapperLocations" value="classpath:/mybatis/mapper/**/*.xml"/>
+	</bean>
+
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index = "0" ref="sqlSessionFactory"></constructor-arg>
+	</bean>-->
+	<!--<bean id = "memberDaoImpl" class = "com.spring.DAO.memberDaoImpl">
 		<property name = "jdbcTemplate" ref = "jdbcTemplate"></property>
 	</bean>
 
@@ -67,5 +88,5 @@
 
 	<bean id = "TaskServiceImpl" class = "com.spring.Service.TaskServiceImpl">
 		<property name = "taskdao" ref = "TaskDaoImpl"></property>
-	</bean>
+	</bean>-->
 </beans>

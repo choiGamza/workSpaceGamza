@@ -1,17 +1,17 @@
 package com.spring.DAO;
 
-import java.util.List;
-
+import com.spring.DTO.userVO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import com.spring.DTO.memberDto;
+
+import java.util.List;
 
 public class memberDaoImpl implements memberDaoInterface{
 	
 	private JdbcTemplate jdbcTemplate;
-	private List<memberDto> list;
-	private memberDto dto;
+	private List<userVO> list;
+	private userVO dto;
 
 	public JdbcTemplate getJdbcTemplate() {
 		return jdbcTemplate;
@@ -20,7 +20,7 @@ public class memberDaoImpl implements memberDaoInterface{
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
-	public int MemberRegister(memberDto member) {
+	public int MemberRegister(userVO member) {
 		String sql = "insert into member values(?,?,?,?,?,?,?,?,?,?,'false')";
 		int ret = 1;
 		
@@ -35,11 +35,11 @@ public class memberDaoImpl implements memberDaoInterface{
 		return ret;
 	}
 	
-	public List<memberDto> MemberList(){
+	public List<userVO> MemberList(){
 		String sql = "select * from member";
 		
 		try {
-			list = jdbcTemplate.query(sql, new BeanPropertyRowMapper(memberDto.class));
+			list = jdbcTemplate.query(sql, new BeanPropertyRowMapper(userVO.class));
 		}
 		catch(DataAccessException e){
 			System.out.println("MemberList() - DataAccessException");
@@ -61,11 +61,11 @@ public class memberDaoImpl implements memberDaoInterface{
 		}
 		return pw;
 	}
-	public memberDto userInformation(String id) {
+	public userVO userInformation(String id) {
 		String sql = "select * from member where id = ?";
 		
 		try {
-			dto = (memberDto) jdbcTemplate.queryForObject(sql, new Object[] {id}, new BeanPropertyRowMapper(memberDto.class));
+			dto = (userVO) jdbcTemplate.queryForObject(sql, new Object[] {id}, new BeanPropertyRowMapper(userVO.class));
 		}
 		catch(DataAccessException e) {
 			System.out.println("userInformation() - DataAccessException");
@@ -73,7 +73,7 @@ public class memberDaoImpl implements memberDaoInterface{
 		return dto;
 	}
 	
-	public int updateProfileimg(memberDto dto) {
+	public int updateProfileimg(userVO dto) {
 		String sql = "update member set profileimg = ? where id = ?";
 		
 		int ret = 1;
@@ -89,7 +89,7 @@ public class memberDaoImpl implements memberDaoInterface{
 		return ret;
 	}
 	
-	public int changeInfo(memberDto member) {
+	public int changeInfo(userVO member) {
 		String sql = "update member set pw = ?, phonenum = ?, address = ?, email = ? where id = ?";
 		int ret = 1;
 		
@@ -103,7 +103,7 @@ public class memberDaoImpl implements memberDaoInterface{
 		return ret;
 	}
 	
-	public int AdminUserChangeInfo(memberDto member) {
+	public int AdminUserChangeInfo(userVO member) {
 		String sql = "update member set department = ?, position = ? where id = ?";
 		int ret = 1;
 		
@@ -131,10 +131,10 @@ public class memberDaoImpl implements memberDaoInterface{
 		return ret;
 	}
 	
-	public List<memberDto> DepartmentMember(memberDto dto){
+	public List<userVO> DepartmentMember(userVO dto){
 		String sql = "select * from member where department = ?";
 		try {
-			list = jdbcTemplate.query(sql,new Object[] {dto.getDepartment()} ,new BeanPropertyRowMapper(memberDto.class));
+			list = jdbcTemplate.query(sql,new Object[] {dto.getDepartment()} ,new BeanPropertyRowMapper(userVO.class));
 		}
 		catch(DataAccessException e){
 			System.out.println("DepartmentMember() - DataAccessException");
@@ -142,12 +142,12 @@ public class memberDaoImpl implements memberDaoInterface{
 		return list;
 	}
 	
-	public int FindPwSuccess(memberDto dto) {
+	public int FindPwSuccess(userVO dto) {
 		String sql = "select * from member where id = ? and name = ? and email = ?";
 		int ret = 1;
 		
 		try {
-			jdbcTemplate.queryForObject(sql, new Object[] {dto.getId(),dto.getName(),dto.getEmail()}, new BeanPropertyRowMapper(memberDto.class));
+			jdbcTemplate.queryForObject(sql, new Object[] {dto.getId(),dto.getName(),dto.getEmail()}, new BeanPropertyRowMapper(userVO.class));
 		}
 		catch(DataAccessException e) {
 			System.out.println("FindPwSuccess() - DataAccessException");
@@ -156,7 +156,7 @@ public class memberDaoImpl implements memberDaoInterface{
 		return ret;
 	}
 	
-	public int FindPwUpdate(memberDto dto) {
+	public int FindPwUpdate(userVO dto) {
 		String sql = "update member set pw = ? where id = ?";
 		int ret = 1;
 		
@@ -169,13 +169,13 @@ public class memberDaoImpl implements memberDaoInterface{
 		}
 		return ret;
 	}
-	public List<memberDto> teamNameList(String department)
+	public List<userVO> teamNameList(String department)
 	{
 		String sql = "select * from member where department=?";
 		
 		
 		try {
-			return jdbcTemplate.query(sql,new Object[] {department} ,new BeanPropertyRowMapper(memberDto.class));
+			return jdbcTemplate.query(sql,new Object[] {department} ,new BeanPropertyRowMapper(userVO.class));
 		}
 		catch(DataAccessException e) {
 			System.out.println("teamNameList() - DataAccessException");

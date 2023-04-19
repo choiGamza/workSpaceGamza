@@ -1,11 +1,11 @@
 package com.spring.Service;
 
-import java.util.List;
-
 import com.spring.DAO.departmentDaoImpl;
 import com.spring.DAO.memberDaoImpl;
-import com.spring.DTO.departmentDto;
-import com.spring.DTO.memberDto;
+import com.spring.DTO.userVO;
+import com.spring.vo.DepartmentVO;
+
+import java.util.List;
 
 public class organizationServiceImpl implements organizationServiceInterface{
 
@@ -27,11 +27,11 @@ public class organizationServiceImpl implements organizationServiceInterface{
 		return memberDao;
 	}
 	@Override
-	public int addDepartment(departmentDto dto) {
+	public int addDepartment(DepartmentVO dto) {
 		return departmentDao.addDepartment(dto);
 	}
 	@Override
-	public List<departmentDto> departmentList(){
+	public List<DepartmentVO> departmentList(){
 		return departmentDao.departmentList();
 	}
 	@Override
@@ -47,11 +47,11 @@ public class organizationServiceImpl implements organizationServiceInterface{
 		return departmentDao.deleteTotalNum(department);
 	}
 	@Override
-	public int MemberRegister(memberDto member) {
+	public int MemberRegister(userVO member) {
 		return memberDao.MemberRegister(member);
 	}
 	@Override
-	public List<memberDto> MemberList(){
+	public List<userVO> MemberList(){
 		return memberDao.MemberList();
 	}
 	@Override
@@ -59,15 +59,15 @@ public class organizationServiceImpl implements organizationServiceInterface{
 		return memberDao.Login(id);
 	}
 	@Override
-	public memberDto userInformation(String id) {
+	public userVO userInformation(String id) {
 		return memberDao.userInformation(id);
 	}
 	@Override
-	public int changeInfo(memberDto member) {
+	public int changeInfo(userVO member) {
 		return memberDao.changeInfo(member);
 	}
 	@Override
-	public int AdminUserChangeInfo(memberDto member) {
+	public int AdminUserChangeInfo(userVO member) {
 		return memberDao.AdminUserChangeInfo(member);
 	}
 	@Override
@@ -75,21 +75,21 @@ public class organizationServiceImpl implements organizationServiceInterface{
 		return memberDao.AdminUserDeleteInfo(id);
 	}
 	@Override
-	public List<memberDto> DepartmentMember(memberDto dto){
+	public List<userVO> DepartmentMember(userVO dto){
 		return memberDao.DepartmentMember(dto);
 	}
 	@Override
-	public int FindPwSuccess(memberDto dto) {
+	public int FindPwSuccess(userVO dto) {
 		return memberDao.FindPwSuccess(dto);
 	}
 	@Override
-	public int FindPwUpdate(memberDto dto) {
+	public int FindPwUpdate(userVO dto) {
 		return memberDao.FindPwUpdate(dto);
 	}
-	public int updateProfileimg(memberDto dto) {
+	public int updateProfileimg(userVO dto) {
 		return memberDao.updateProfileimg(dto);
 	}
-	public List<memberDto> teamNameList(String department){
+	public List<userVO> teamNameList(String department){
 		return memberDao.teamNameList(department);
 	}
 }

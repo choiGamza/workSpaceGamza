@@ -1,14 +1,11 @@
 package com.spring.DAO;
 
-import java.util.List;
-
+import com.spring.DTO.noticeDto;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.spring.DTO.departmentDto;
-import com.spring.DTO.memberDto;
-import com.spring.DTO.noticeDto;
+import java.util.List;
 
 public class noticeDaoImpl implements noticeDaoInterface{
 
@@ -111,7 +108,7 @@ public class noticeDaoImpl implements noticeDaoInterface{
 		String sql = "insert into noticereply values(?,?,?)";
 		int ret = 1;
 		try {
-			jdbcTemplate.update(sql, new Object[] {dto.getReplyid(), dto.getReplycontent(),dto.getBid()});
+//			jdbcTemplate.update(sql, new Object[] {dto.getReplyid(), dto.getReplycontent(),dto.getBid()});
 		}
 		catch(DataAccessException e) {
 			System.out.println("addNoticeReply() - DataAccessException");  
@@ -184,7 +181,7 @@ public class noticeDaoImpl implements noticeDaoInterface{
 		}
 		return list;
 	}
-	
+
 	public List<noticeDto> generalList(){
 		String sql = "select * from notice where important = 'false'";
 		try {
