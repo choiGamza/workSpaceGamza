@@ -39,6 +39,22 @@ font-size : 30px;
                 height: 10%;
         }
 }
+
+caption {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    color: #6c757d;
+    text-align: center !important;
+    caption-side: top !important;
+    font-weight : bolder !important;
+    font-size : 40px !important;
+}
+.impor {
+    float: right;
+}
+.pageing{
+    float : center !important;
+}
 </style>
 
 </head>
@@ -256,24 +272,6 @@ font-size : 30px;
          
             <!-- -------------------------본문시작(복사해놓는 부분)-----------------------------  -->
 
-<style>                           
-      caption {                     
-           padding-top: 0.75rem;
-           padding-bottom: 0.75rem;
-           color: #6c757d;
-           text-align: center !important;
-           caption-side: top !important;
-           font-weight : bolder !important;
-           font-size : 40px !important;
-      }
-      .impor {
-	float: right;
-}
-	.pageing{
-		float : center !important;
-	}
-      </style>
-
       <table class="table" style="text-align: center; border: 2px;">
 							<caption>공지사항/게시판</caption>
 							<tr>
@@ -477,18 +475,7 @@ font-size : 30px;
          </div>
       </div>
 
-	  <script>
-			$(document).ready(function(){
-			    $("#myBtn").click(function(){
-			        $("#myModal").modal();
-			    });
-			});
-			$(document).ready(function() {
-				$("#Btn").click(function() {
-					$("#myModal2").modal();
-				});
-			});
-		</script>
+      <script type="text/javascript" src = "${pageContext.request.contextPath}/resources/js/noticeController.js" ></script>
 </body>
 
 </html>

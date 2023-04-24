@@ -1,8 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 
-<html>
-  <head>
+<script type="text/javascript" charset="utf-8">
+  sessionStorage.setItem("contextpath", "${pageContext.request.contextPath}");
+
+  var contextPath = sessionStorage.getItem("contextpath");
+</script>
+
+<%--<html>--%>
+<%--  <head>--%>
     <!-- Bootstrap core CSS-->
     <link href="${pageContext.request.contextPath}/resources/bootstrap/vendor/bootstrap/css/bootstrap.min.css"
           rel="stylesheet">
@@ -18,8 +24,8 @@
     <!-- Custom styles for this template-->
     <link href="${pageContext.request.contextPath}/resources/bootstrap/css/sb-admin.css" rel="stylesheet">
 
-  </head>
-  <body>
+<%--  </head>--%>
+<%--  <body>--%>
     <!-- Bootstrap core JavaScript-->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/jquery/jquery.min.js"></script>
     <script
@@ -43,5 +49,8 @@
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/datatables-demo.js"></script>
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/chart-area-demo.js"></script>
 
-  </body>
-</html>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<%--  </body>--%>
+<%--</html>--%>

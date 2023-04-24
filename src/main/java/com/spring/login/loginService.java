@@ -36,29 +36,6 @@ public class loginService {
         }
         return result;
     }
-//    public ModelAndView login(HttpServletRequest req, HttpSession session) {
-//        ModelAndView model = new ModelAndView();
-//
-//        String id = req.getParameter("ID");				//사용자가 입력한 id 값
-//        String pw = req.getParameter("PW");				//사용자가 입력한 pw 값
-//
-//        Map<String,Object> map = new HashMap<String,Object>();
-//
-//        map.put("userId", id);
-//        map.put("userPw", pw);
-//
-//        UserVO ret = mapper.login(map);
-//
-//        if(ret != null) {
-//            session.setAttribute("userInfo", ret);
-//            model.addObject("msg", ret);
-//            model.setViewName("Main/home");
-//        }else{
-//            model.addObject("msg", new NullPointerException());
-//            model.setViewName("Main/login");
-//        }
-//        return model;
-//    }
 
     public Map<String,Object> findPassword(UserVO vo) {
         Map<String,Object> result = new HashMap<String,Object>();
