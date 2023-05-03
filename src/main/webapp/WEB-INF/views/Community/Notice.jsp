@@ -49,278 +49,47 @@ caption {
     font-weight : bolder !important;
     font-size : 40px !important;
 }
-.impor {
-    float: right;
-}
-.pageing{
-    float : center !important;
-}
 </style>
-
 </head>
-
 <body id="page-top">
 
- 
    <div id="wrapper">
+       <jsp:include page="/WEB-INF/views/Common/leftMenu.jsp" flush="false" />
 
-      <!-- 사이드메뉴 -->
-      <ul class="sidebar navbar-nav"
-         style="background-color: #3a4651; padding-bottom : 0px; font-size : 13px;!important ">
-         <!--------------- 제목-------------------- -->
-         
-         <li class="nav-item">
-         <a class="nav-link" href="adminMain?id=${user.id }"> 
-         	<span style="color : white; font-size : 17px; font-family: 'Open Sans', sans-serif;">&nbsp;<i class="fab fa-audible" style="color : #85ce36; font-size :21px;"></i>&nbsp;The JoenAcademy</span>
-         </a>
-         </li>
+       <div id="content-wrapper" style="background-color: #f0f3f6; padding-top : 0px; padding-left : 0px; padding-right : 0px; ">
+            <jsp:include page="/WEB-INF/views/Common/topMenu.jsp" flush="false" />
 
+        <div class="container-fluid" style="padding-left : 25px; padding-right : 25px; padding-top : 25px; padding-bottom : 25px;">
+        <!-- -------------------------본문시작(복사해놓는 부분)-----------------------------  -->
+            <table class="table" style="text-align: center; border: 2px;">
+                <caption>공지사항/게시판</caption>
+                <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>날짜</th>
+                    <th>조회수</th>
+                </tr>
+                </thead>
+                <tbody id = "noticeList"></tbody>
+            </table>
 
-         <!-- -------------콜랩스 관리자메뉴 ---------- -->
-         
-         
-         
-         
-         
-         <c:if test="${user.id=='admin'}">
-
-            <li class="nav-item"
-               onmouseover="this.style.backgroundColor='#333e48'"
-               onmouseout="this.style.backgroundColor='#3a4651'"><a
-               href="#collapse1" class="nav-link" data-toggle="collapse"> <i
-                  class="fas fa-fw fa-cog"></i> <span style="font-size : 15px;">관리자메뉴</span> <i
-                  class="fas fa-angle-down"></i>
-            </a></li>
-
-
-            <div class="collapse" id="collapse1">
-               <ul class="nav navbar-nav">
-                  <li class="nav-item"
-                     onmouseover="this.style.backgroundColor='#333e48'"
-                     onmouseout="this.style.backgroundColor='#3a4651'"><a
-                     href="#adminOrgz" class="nav-link" data-toggle="collapse"
-                     style="padding-left: 20px;"> <i class="far fa-fw fa-building"></i>
-                        <span style="font-size : 15px;">조직관리(관리자)</span> <i class="fas fa-angle-down"></i>
-                  </a></li>
-                  <div class="collapse" id="adminOrgz">
-                     <ul class="nav navbar-nav" aria-expanded="true">
-                     <li class="nav-item"
-                           onmouseover="this.style.backgroundColor='#333e48'"
-                           onmouseout="this.style.backgroundColor='#3a4651'"><a
-                           class="nav-link" href="adminOrganization"
-                           style="padding-left: 45px;"> 부서관리 </a></li>
-                        <li class="nav-item"
-                           onmouseover="this.style.backgroundColor='#333e48'"
-                           onmouseout="this.style.backgroundColor='#3a4651'"><a
-                           class="nav-link" href="adminRegister"
-                           style="padding-left: 45px;"> 회원등록/삭제 </a></li>
-                     </ul>
-                  </div>
-                  <li class="nav-item"
-                     onmouseover="this.style.backgroundColor='#333e48'"
-                     onmouseout="this.style.backgroundColor='#3a4651'"><a
-                     class="nav-link" href="adminHoliday" style="padding-left: 20px;">
-                        <i class="fas fa-fw fa-address-book"></i> <span style="font-size : 15px;">휴가관리(관리자)</span>
-                  </a></li>
-               </ul>
-            </div>
-         </c:if>
-
-         <!-- ------------------------------------------- -->
-
-         <li class="nav-item"
-            onmouseover="this.style.backgroundColor='#333e48'"
-            onmouseout="this.style.backgroundColor='#3a4651'"><a
-            class="nav-link" href="userOrganization"> <i
-               class="far fa-fw fa-building"></i> <span style="font-size : 15px;">회사조직도(사용자)</span>
-         </a></li>
-
-
-
-
-         <!-- ------------------------------------------------ -->
-
-         <li class="nav-item"
-            onmouseover="this.style.backgroundColor='#333e48'"
-            onmouseout="this.style.backgroundColor='#3a4651'"><a
-            href="#taskMenu" class="nav-link" data-toggle="collapse"> <i
-               class="far fa-fw fa-calendar-alt"></i> <span style="font-size : 15px;">업무관리(사용자)</span> <i
-               class="fas fa-angle-down"></i>
-         </a></li>
-
-
-         <div class="collapse" id="taskMenu">
-            <ul class="nav navbar-nav" aria-expanded="true">
-               <li class="nav-item"
-                  onmouseover="this.style.backgroundColor='#333e48'"
-                  onmouseout="this.style.backgroundColor='#3a4651'"><a
-                  class="nav-link" href="userTeamSchedule"
-                  style="padding-left: 45px;"> 팀 일정 </a></li>
-               <li class="nav-item"
-                  onmouseover="this.style.backgroundColor='#333e48'"
-                  onmouseout="this.style.backgroundColor='#3a4651'"><a
-                  class="nav-link" href="userTask?id=${user.id }" style="padding-left: 45px;">
-                     자신의 업무일지 </a></li>
-            </ul>
-         </div>
-
-         <!-- ---------------------------------------------- -->
-
-         <li class="nav-item"
-            onmouseover="this.style.backgroundColor='#333e48'"
-            onmouseout="this.style.backgroundColor='#3a4651'"><a
-            href="#holidayMenu" class="nav-link" data-toggle="collapse"> <i
-               class="fas fa-fw fa-address-book"></i> <span style="font-size : 15px;">휴가관리(사용자)</span> <i
-               class="fas fa-angle-down"></i>
-         </a></li>
-
-
-         <div class="collapse" id="holidayMenu">
-            <ul class="nav navbar-nav" aria-expanded="true">
-               <li class="nav-item"
-                  onmouseover="this.style.backgroundColor='#333e48'"
-                  onmouseout="this.style.backgroundColor='#3a4651'"><a
-                  class="nav-link" href="userHolidayApply"
-                  style="padding-left: 45px;">휴가신청</a></li>
-
-               <li class="nav-item"
-                  onmouseover="this.style.backgroundColor='#333e48'"
-                  onmouseout="this.style.backgroundColor='#3a4651'"><a
-                  class="nav-link" href="userHolidayCheck"
-                  style="padding-left: 45px;">휴가조회</a></li>
-            </ul>
-         </div>
-         <!-- ---------------------------------------------- -->
-
-         <li class="nav-item"
-            onmouseover="this.style.backgroundColor='#333e48'"
-            onmouseout="this.style.backgroundColor='#3a4651'"><a
-            href="#Community" class="nav-link" data-toggle="collapse"
-             style="background-color: #85ce36; color: #ffffff;"> <i
-               class="fas fa-fw fa-atom"></i> <span style="font-size : 15px;">커뮤니티</span> <i
-               class="fas fa-angle-down"></i>
-         </a></li>
-
-
-         <div class="collapse" id="Community">
-            <ul class="nav navbar-nav" aria-expanded="true">
-               <li class="nav-item"
-                  onmouseover="this.style.backgroundColor='#333e48'"
-                  onmouseout="this.style.backgroundColor='#3a4651'"><a
-                  class="nav-link" href="Notice" style="padding-left: 45px;">공지사항/게시판</a>
-               </li>
-            </ul>
-         </div>
-         
-         <li class="nav-item"
-            onmouseover="this.style.backgroundColor='#333e48'"
-            onmouseout="this.style.backgroundColor='#3a4651'"><a
-            class="nav-link" href="chatting"> <i class="far fa-comments"></i><span style="font-size : 15px;">&nbsp;메신저</span>
-         </a></li>
-         
-         <!-- ---------------------------------------------- -->
-
-      </ul>
-
-
-
-<!--  --------------------------------------------------------------------------------------------------------------------------- -->
-         
-         
-
-
-
-
-
-      <div id="content-wrapper" style="background-color: #f0f3f6; padding-top : 0px; padding-left : 0px; padding-right : 0px; ">
-      
-      <div class="navbar navbar-expand navbar-dark static-top"
-      style="background-color: #d7dde4;">
-       
-
-      
-      
-
-      <!--   Navbar Search--> 
-      <form
-         class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-      </form>
-
-      <!-- Navbar--> 
-      <ul class="navbar-nav ml-auto ml-md-0">
-         <li class="nav-item dropdown no-arrow"><a
-            class="nav-link dropdown-toggle" href="#" id="userDropdown"
-            role="button" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false" style="color: #4f5f6f;"><i
-               class="fas fa-user-circle fa-fw"></i> 
-            	${user.name }
-             </a>
-            <div class="dropdown-menu dropdown-menu-right"
-               aria-labelledby="userDropdown">
-               <a class="dropdown-item" href="#" data-toggle = "modal" data-target="#changeModal" role="button" id="Btn">정보변경</a>
-               <div class="dropdown-divider"></div>
-               <a class="dropdown-item" href="#" data-toggle="modal"
-                  data-target="#logoutModal">로그아웃</a>
-            </div></li>
-      </ul>
-
-   </div>
-         <div class="container-fluid" style="padding-left : 25px; padding-right : 25px; padding-top : 25px; padding-bottom : 25px;">
-         
-         
-         
-         
-            <!-- -------------------------본문시작(복사해놓는 부분)-----------------------------  -->
-
-      <table class="table" style="text-align: center; border: 2px;">
-							<caption>공지사항/게시판</caption>
-							<tr>
-								<td>번호</td>
-								<td>제목</td>
-								<td>작성자</td>
-								<td>날짜</td>
-								<td>조회수</td>
-							</tr>
-							<c:forEach items = "${noticeList }" var = "noticeList">
-								<tr>
-									<td><span class="badge badge-pill badge-primary">공지</span></td>
-									<td><a href = "noticeView?bid=${noticeList.bid }">${noticeList.title }</a></td>
-									<td>${noticeList.name }</td>
-									<td>${noticeList.rdate }</td>
-									<td>${noticeList.hit }</td>
-								</tr>
-							</c:forEach>
-							<c:forEach items = "${listCount }" var = "listCount">
-								<tr>
-							
-									<td>${listCount.bid }</td>
-									<td><a href = "noticeView?bid=${listCount.bid }">${listCount.title }</a></td>
-									<td>${listCount.name }</td>
-									<td>${listCount.rdate }</td>
-									<td>${listCount.hit }</td>
-							
-								</tr>
+            <button type="button" class="btn btn-info btn-sm" id="myBtn" style="float: right;">글작성</button>
 								
-							</c:forEach>
-			</table>
-						<button type="button" class="btn btn-info btn-sm" id="myBtn"
-								style="float: right;">글작성</button>
-								
-						<c:forEach items = "${generalList }" var = "list" varStatus = "status1">
-						
-							<c:set var = "count2" value = "${status1.count }" />
-						</c:forEach>
-						
-						<c:set var = "result" value = "${count2/10 }"/>				
-						
-						
-						<nav aria-label="Page navigation example">
-						  <ul class="pagination justify-content-center">
-							<c:forEach var = "count" begin = "1" end = "${result+1 }">
-								<li class = "page-item">	<a class = "page-link" href = "noticeListView?pagenum=${count }">${count }</a></li>
-							</c:forEach>
-						 </ul>
-						</nav>
+            <c:forEach items = "${generalList }" var = "list" varStatus = "status1">
+                <c:set var = "count2" value = "${status1.count }" />
+            </c:forEach>
+
+            <c:set var = "result" value = "${count2/10 }"/>
+
+            <nav aria-label="Page navigation example">
+              <ul class="pagination justify-content-center">
+                <c:forEach var = "count" begin = "1" end = "${result+1 }">
+                    <li class = "page-item">	<a class = "page-link" href = "noticeListView?pagenum=${count }">${count }</a></li>
+                </c:forEach>
+             </ul>
+            </nav>
 						
 						
 						

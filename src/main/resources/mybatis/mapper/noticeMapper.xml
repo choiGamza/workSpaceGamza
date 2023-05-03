@@ -5,7 +5,15 @@
 
     <select id = "notice" resultType = "hashmap">
 
-        SELECT * FROM notice
+        SELECT
+            bid
+           , name
+           , title
+           , content
+           , date_format(rdate,'%Y-%m-%d') as rdate
+           , hit
+           , important
+        FROM notice
 
     </select>
 
